@@ -11,11 +11,11 @@ class AuthController extends AuthenticationController
     }
 
     protected function redirectAfterLogin(){
-        return 'admin';
+        return route("admin.dashboard");
     }
 
     protected function redirectAfterLogout(){
-        return '/';
+        return route("admin.login");
     }
 
     public function showFormLogin(){

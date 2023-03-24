@@ -15,8 +15,19 @@ Route::prefix("blog")
 
         Route::middleware(['auth'])
             ->group(function(){
-                Route::get("/", function(){
-                    echo 'Blog of '. \Illuminate\Support\Facades\Auth::user()->email;
-                })->name("dashboard");
+
+
+                Route::middleware(['token.confirm'])
+                    ->group(function(){
+                        Route::get("/login-confirm", [AuthController::class, 'showConfirmLoginTokenForm'])->name("token_login");
+                        Route::post("/login-confirm", [AuthController::class, 'confirmLoginToken'])->name("token_login");
+                    });
+
+                Route::middleware(['token.login'])
+                    ->group(function(){
+                        Route::get("/", function(){
+                            echo 'Blog of '. \Illuminate\Support\Facades\Auth::user()->email;
+                        })->name("index");
+                    });
             });
 });

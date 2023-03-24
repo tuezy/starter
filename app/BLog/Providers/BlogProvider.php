@@ -2,6 +2,8 @@
 
 namespace App\Blog\Providers;
 
+use App\Blog\Events\SendTokenAfterLogin;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class BlogProvider extends ServiceProvider
@@ -20,6 +22,6 @@ class BlogProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Event::listen("auth.blog-login.after", [SendTokenAfterLogin::class, 'handle']);
     }
 }

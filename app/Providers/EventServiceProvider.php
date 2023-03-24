@@ -32,6 +32,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         'auth.regigter.after' => [
 
+        ],
+        'auth.login.before' => [
+
+        ],
+        'auth.login.after' => [
+
         ]
 
     ];
