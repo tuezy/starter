@@ -19,6 +19,10 @@ class LoginTokenConfirm
     {
         $guards = empty($guards) ? ['web'] : $guards;
 
+        if(!config("auth.login_token_confirmation", true)){
+            return $next($request);
+        }
+
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 $user = Auth::guard($guard)->user();
@@ -36,11 +40,11 @@ class LoginTokenConfirm
                 }
 
                 if($guard == 'web'){
-                    return redirect(route("blog.login-token"));
+                    return redirect(route("blog.token-login"));
                 }
             }
         }
 
-        return $next($request);
+
     }
 }
