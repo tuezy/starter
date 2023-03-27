@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class RedirectIfAuthenticated
+class RedirectIfTokenConfirmed
 {
     /**
      * Handle an incoming request.
@@ -17,22 +17,19 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $guards = empty($guards) ? ['web'] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if($guard == 'admins'){
-                    return redirect('/admin');
-                }
+                $user = Auth::guard($guard)->user();
 
-                if($guard == 'customers'){
-                    return redirect('/admin');
+                if(!empty($user->token_login)){
+                    return $next($request);
                 }
 
                 if($guard == 'web'){
-                    return redirect('/blog');
+                    return redirect(route("blog.index"));
                 }
-                return redirect(RouteServiceProvider::HOME);
             }
         }
 
