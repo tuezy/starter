@@ -8,9 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
-class AuthenticationController extends Controller
+class LoginController extends Authentication
 {
-    protected $guard;
 
     /**
      * Handle an authGuard attempt.
@@ -36,21 +35,6 @@ class AuthenticationController extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(Request $request): RedirectResponse
-    {
-        Event::dispatch("auth.logout.before", [$this->authGuard()->user()]);
-
-        $this->authGuard()->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        Event::dispatch("auth.logout.after", [$this->authGuard()->user()]);
-
-        return redirect($this->redirectAfterLogout());
-    }
-
     protected function guard(){
         return 'web';
     }
@@ -59,15 +43,7 @@ class AuthenticationController extends Controller
         return $this->authGuard()->attempt($credentials);
     }
 
-    protected function authGuard(){
-        return Auth::guard($this->guard());
-    }
-
     protected function redirectAfterLogin(){
-        return 'dashboard';
-    }
-
-    protected function redirectAfterLogout(){
-        return '/';
+        return route("admin.dashboard");
     }
 }

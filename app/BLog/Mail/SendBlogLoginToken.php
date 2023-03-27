@@ -27,7 +27,7 @@ class SendBlogLoginToken extends Emailable{
             view: "blog::emails.send-blog-login-token",
             with: [
                 'user' => $this->user,
-                'totken' => md5(time())
+                'totken' => $this->user->token_login
             ]
         );
     }

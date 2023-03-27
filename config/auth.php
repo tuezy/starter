@@ -2,6 +2,8 @@
 
 return [
 
+    'login_token_confirmation' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults

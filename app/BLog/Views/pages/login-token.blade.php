@@ -2,7 +2,7 @@
 
 @section("content")
     <div class="container">
-        <form action="{{route("blog.token_login")}}" class="vh-100 d-flex align-items-center justify-content-center" method="POST">
+        <form action="{{route("blog.token-login")}}" class="vh-100 d-flex align-items-center justify-content-center" method="POST">
             @csrf
             <div class="col-lg-4">
                 <div id="login-form" class="border border-primary-subtle p-3 rounded">
