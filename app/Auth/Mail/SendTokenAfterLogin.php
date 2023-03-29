@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Blog\Mail;
+namespace App\Auth\Mail;
 
 use App\Email\Emailable;
 use Illuminate\Mail\Mailables\Content;
 
-class SendBlogLoginToken extends Emailable{
+class SendTokenAfterLogin extends Emailable{
 
     protected $user;
 

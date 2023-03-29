@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Blog\Controllers;
+namespace App\Blog\Controllers\Auth;
 
-use App\Auth\Controllers\AuthenticationController;
+use App\Auth\Controllers\LoginController as Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 
-class AuthController extends AuthenticationController
+class LoginController extends Login
 {
     protected function guard(){
         return 'web';
@@ -17,10 +17,6 @@ class AuthController extends AuthenticationController
         $user->token_login = time();
         $user->save();
         Event::dispatch("auth.blog-login.after", $user);
-        return '/blog';
-    }
-
-    protected function redirectAfterLogout(){
         return '/blog';
     }
 

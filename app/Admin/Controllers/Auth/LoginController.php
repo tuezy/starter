@@ -1,21 +1,13 @@
 <?php
 
-namespace App\Admin\Controllers;
+namespace App\Admin\Controllers\Auth;
 
-use App\Auth\Controllers\AuthenticationController;
-
-class AuthController extends AuthenticationController
-{
+class LoginController extends \App\Auth\Controllers\LoginController{
     protected function guard(){
         return 'admins';
     }
-
     protected function redirectAfterLogin(){
         return route("admin.dashboard");
-    }
-
-    protected function redirectAfterLogout(){
-        return route("admin.login");
     }
 
     public function showFormLogin(){

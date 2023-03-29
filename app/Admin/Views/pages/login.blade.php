@@ -11,9 +11,9 @@
                         <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="admin@gmail.com">
                     </div>
                     @error("email")
-                    <div class="mb-3">
-                        {{ $message  }}
-                    </div>
+                        <div class="mb-3">
+                            {{ $message  }}
+                        </div>
                     @enderror
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
