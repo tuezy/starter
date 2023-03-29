@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Blog\Providers;
+namespace App\Auth\Providers;
 
+use App\Auth\Events\SendEmailTokenEvent;
 use App\Blog\Events\SendTokenAfterLogin;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
-class BlogProvider extends ServiceProvider
+class AuthServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
     public function register(): void
     {
-       $this->loadRoutesFrom(dirname(__DIR__) . "/Routes/blog_routes.php");
-       $this->loadViewsFrom(dirname(__DIR__) . "/Views", "blog");
     }
 
     /**
@@ -22,5 +21,6 @@ class BlogProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Event::listen("auth.send-login-verify-token", [SendEmailTokenEvent::class, 'handle']);
     }
 }
