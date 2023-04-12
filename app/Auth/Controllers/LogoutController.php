@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
-class LogoutController extends Authentication
+abstract class LogoutController extends Authentication
 {
     public function logout(Request $request): RedirectResponse
     {
@@ -25,7 +25,5 @@ class LogoutController extends Authentication
         return redirect($this->redirectAfterLogout());
     }
 
-    protected function redirectAfterLogout(){
-        return '/';
-    }
+    public abstract function redirectAfterLogout();
 }

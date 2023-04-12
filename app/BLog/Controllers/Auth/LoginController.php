@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Event;
 
 class LoginController extends Login
 {
-    protected function guard(){
+    public function guard(){
         return 'web';
     }
 
-    protected function redirectAfterLogin(){
+    public function redirectAfterLogin(){
         $user = $this->authGuard()->user();
         $user->token_login = time();
         $user->save();

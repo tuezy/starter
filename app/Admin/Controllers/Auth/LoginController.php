@@ -3,10 +3,10 @@
 namespace App\Admin\Controllers\Auth;
 
 class LoginController extends \App\Auth\Controllers\LoginController{
-    protected function guard(){
+    public function guard(){
         return 'admins';
     }
-    protected function redirectAfterLogin(){
+    public function redirectAfterLogin(){
         return route("admin.dashboard");
     }
 

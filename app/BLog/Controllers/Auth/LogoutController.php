@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Event;
 
 class LogoutController extends Logout
 {
-    protected function guard(){
+    public function guard(){
         return 'web';
     }
 
-    protected function redirectAfterLogout(){
+    public function redirectAfterLogout(){
         return '/blog';
     }
 

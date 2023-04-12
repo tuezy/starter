@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
-class LoginController extends Authentication
+abstract class LoginController extends Authentication
 {
 
     /**
@@ -21,7 +21,9 @@ class LoginController extends Authentication
             'password' => ['required'],
         ]);
 
-        if ($this->checkLogin($credentials)) {
+        $remember = $request->has("remember_me") ? true : false;
+
+        if ($this->checkLogin($credentials, $remember)) {
 
             $request->session()->regenerate();
 
@@ -35,15 +37,10 @@ class LoginController extends Authentication
         ])->onlyInput('email');
     }
 
-    protected function guard(){
-        return 'web';
+    public abstract function redirectAfterLogin();
+
+    protected function checkLogin($credentials, $remember = false){
+        return $this->authGuard()->attempt($credentials, $remember);
     }
 
-    protected function checkLogin($credentials){
-        return $this->authGuard()->attempt($credentials);
-    }
-
-    protected function redirectAfterLogin(){
-        return route("admin.dashboard");
-    }
 }
